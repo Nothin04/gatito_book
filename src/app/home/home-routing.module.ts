@@ -1,11 +1,23 @@
 import { HomeComponent } from './home.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { LoginComponent } from './login/login.component';
+import { NovoUsuarioComponent } from './novo-usuario/novo-usuario.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent
+    component: HomeComponent,
+    children: [
+      {
+        path: '',
+        component: LoginComponent
+      },
+      {
+        path: 'novousuario',
+        component: NovoUsuarioComponent
+      }
+    ]
   }
 ];
 
