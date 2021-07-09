@@ -1,4 +1,7 @@
+import { AnimaisService } from './../animais.service';
+import { Animais } from './../animais';
 import { Component, OnInit } from '@angular/core';
+import { UsuarioService } from 'src/app/autenticacao/usuario/usuario.service';
 
 @Component({
   selector: 'app-lista-animais',
@@ -6,10 +9,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./lista-animais.component.css']
 })
 export class ListaAnimaisComponent implements OnInit {
+  animais!: Animais
 
-  constructor() { }
+  constructor(private usuarioService: UsuarioService, private animaisService: AnimaisService) { }
 
   ngOnInit(): void {
+    this.usuarioService.retornaUsuario().subscribe((usuario) => {
+      const userName = usuario.name ?? ''
+      this.animaisService.listaDoUsuario(userName).subscribe((animais) => {
+        this.animais = animais
+      })
+    })
   }
 
 }
